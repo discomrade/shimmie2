@@ -23,6 +23,7 @@ final class BBCode extends FormatterExtension
             $text = \Safe\preg_replace("!\[$el\](.*?)\[/$el\]!s", "<$el>$1</$el>", $text);
         }
         $text = \Safe\preg_replace('!^&gt;&gt;([^\d].+)!', '<blockquote><small>$1</small></blockquote>', $text);
+        $text = \Safe\preg_replace('/(^|\n)(&gt;(?!&gt;).*)/', '${1}<span class="greentext">${2}</span>', $text);
         $text = \Safe\preg_replace('!&gt;&gt;(\d+)(#c?\d+)?!s', '<a class="shm-clink" data-clink-sel="$2" href="'.make_link('post/view/$1$2').'">&gt;&gt;$1$2</a>', $text);
         $text = \Safe\preg_replace('!\[anchor=(.*?)\](.*?)\[/anchor\]!s', '<span class="anchor">$2 <a class="alink" href="#bb-$1" name="bb-$1" title="link to this anchor"> ¶ </a></span>', $text);  // add "bb-" to avoid clashing with eg #top
         $text = \Safe\preg_replace('!\[url=site://(.*?)(#c\d+)?\](.*?)\[/url\]!s', '<a class="shm-clink" data-clink-sel="$2" href="'.make_link('$1$2').'">$3</a>', $text);
@@ -36,7 +37,7 @@ final class BBCode extends FormatterExtension
         $text = \Safe\preg_replace('!\[\[([^\]]+)\]\]!s', '<a href="'.make_link('wiki/$1').'">$1</a>', $text);
         $text = \Safe\preg_replace("!\n\s*\n!", "\n\n", $text);
         $text = str_replace("\n", "\n<br>", $text);
-        $text = \Safe\preg_replace("/\[quote\](.*?)\[\/quote\]/s", "<blockquote><small>\\1</small></blockquote>", $text);
+        $text = \Safe\preg_replace("/\[quote\](.*?)\[\/quote\]/s", "<blockquote><small><span class='greentext'>\\1</span></small></blockquote>", $text);
         $text = \Safe\preg_replace("/\[quote=(.*?)\](.*?)\[\/quote\]/s", "<blockquote><em>\\1 said:</em><br><small>\\2</small></blockquote>", $text);
         while (\Safe\preg_match("/\[list\](.*?)\[\/list\]/s", $text)) {
             $text = \Safe\preg_replace("/\[list\](.*?)\[\/list\]/s", "<ul>\\1</ul>", $text);

@@ -678,14 +678,16 @@ class Page
         $debug = get_debug_info();
         $contact_link = contact_link();
         return joinHTML("", [
-            "Media © their respective owners, ",
-            A(["href" => "https://code.shishnet.org/shimmie2/", "title" => $debug], "Shimmie"),
-            " © ",
-            A(["href" => "https://www.shishnet.org/"], "Shish"),
-            " & ",
-            A(["href" => "https://github.com/shish/shimmie2/graphs/contributors"], "The Team"),
-            " 2007-2024, based on the Danbooru concept.",
-            $contact_link ? emptyHTML(BR(), A(["href" => $contact_link], "Contact")) : ""
+            "Media © their respective owners, running ",
+            A(["href" => "https://code.shishnet.org/shimmie2/", "title" => $debug], "Shimmie2"),
+            "+",
+            A(["href" => "https://codeberg.org/nuclearchange/leftybooru/"], "leftybooru"),
+            ".",
+            $contact_link ? emptyHTML(BR(), A(["href" => $contact_link], "Contact")) : "",
+            BR(),
+            A(["href" => "http://booru.nuclearcdboxafziza4mgohcwhzfjiyg6zeslnry33pepsgtur2wyeyd.onion/"], "Tor"),
+            " - ",
+            A(["href" => "http://leftybooru.i2p/?i2paddresshelper=i6uwp7j6ceaqznrjifdi4szwas6pmkjdp6gshbqjkq7rm4jzxcda.b32.i2p"], "I2P"),
         ]);
     }
 }

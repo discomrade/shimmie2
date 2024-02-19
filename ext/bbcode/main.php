@@ -34,7 +34,7 @@ class BBCode extends FormatterExtension
         $text = preg_replace_ex('!\[\[([^\]]+)\]\]!s', '<a href="'.make_link('wiki/$1').'">$1</a>', $text);
         $text = preg_replace_ex("!\n\s*\n!", "\n\n", $text);
         $text = str_replace("\n", "\n<br>", $text);
-        $text = preg_replace_ex("/\[quote\](.*?)\[\/quote\]/s", "<blockquote><small>\\1</small></blockquote>", $text);
+        $text = preg_replace_ex("/\[quote\](.*?)\[\/quote\]/s", "<blockquote><small><span class='greentext'>\\1</span></small></blockquote>", $text);
         $text = preg_replace_ex("/\[quote=(.*?)\](.*?)\[\/quote\]/s", "<blockquote><em>\\1 said:</em><br><small>\\2</small></blockquote>", $text);
         while (\Safe\preg_match("/\[list\](.*?)\[\/list\]/s", $text)) {
             $text = preg_replace_ex("/\[list\](.*?)\[\/list\]/s", "<ul>\\1</ul>", $text);

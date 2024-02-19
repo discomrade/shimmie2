@@ -48,7 +48,7 @@ class HomeTheme extends Themelet
             $page->body_attrs(),
             rawHTML("
 		<div id='front-page'>
-			<div><a style='text-decoration: none;' href='".make_link()."'><img id='logo' src='/_images/95faa00405e06b0cf517a52f3af3c225.png' width='373' height='420' alt='leftybooru' /></a></div>
+			<h1><a style='text-decoration: none;' href='".make_link()."'><img id='logo' src='/_images/95faa00405e06b0cf517a52f3af3c225.png' width='373' height='420' alt='leftybooru' /></a></h1>
 			$main_links_html
 			$search_html
 			$message_html

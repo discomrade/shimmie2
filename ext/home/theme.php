@@ -56,7 +56,7 @@ class HomeTheme extends Themelet
 			<div class='space' id='foot'>
 				<small><small>
 				$contact_link" . (empty($num_comma) ? "" : " Serving $num_comma posts &ndash;") . "
-				Running <a href='https://code.shishnet.org/shimmie2/'>Shimmie2</a>
+				Running <a href='https://code.shishnet.org/shimmie2/'>Shimmie2</a>+<a href='https://codeberg.org/nuclearchange/leftybooru/'>leftybooru</a><br><a href='http://booru.nuclearcdboxafziza4mgohcwhzfjiyg6zeslnry33pepsgtur2wyeyd.onion/'>Tor</a> - <a href='http://leftybooru.i2p/?i2paddresshelper=i6uwp7j6ceaqznrjifdi4szwas6pmkjdp6gshbqjkq7rm4jzxcda.b32.i2p'>I2P</a>
 				</small></small>
 			</div>
 		</div>")

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Shimmie2;
 
-use function MicroHTML\{A, H1, IMG, SMALL, SPAN, joinHTML};
+use function MicroHTML\{A, H1, IMG, SMALL, joinHTML};
 use function MicroHTML\{BODY, DIV, INPUT, META, TITLE, emptyHTML};
 
 use MicroHTML\HTMLElement;
@@ -39,7 +39,7 @@ class HomeTheme extends Themelet
             $page->body_attrs(),
             DIV(
                 ["id" => "front-page"],
-                $this->build_title($sitename),
+                $this->build_logo($sitename),
                 $this->build_links($main_links),
                 $this->build_search(),
                 $this->build_message($main_text),
@@ -49,9 +49,14 @@ class HomeTheme extends Themelet
         );
     }
 
-    protected function build_title(string $sitename): HTMLElement
+    protected function build_logo(string $sitename): HTMLElement
     {
-        return H1(A(["href" => make_link()], SPAN($sitename)));
+        return H1(
+            A(
+                ["href" => make_link()],
+                IMG(["src" => "/_images/95faa00405e06b0cf517a52f3af3c225.png", "width" => "373", "height" => "420", "alt" => $sitename])
+            )
+        );
     }
 
     protected function build_links(HTMLElement $links): ?HTMLElement

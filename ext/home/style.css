@@ -11,3 +11,5 @@ div#front-page > #search > form {margin: 0 auto;}
 div#front-page > #search > form > input[type=submit]{padding: 4px 6px;}
 #counter {display: grid; justify-content: center; margin: auto; max-width: 66%;}
 .counter-img {grid-row: 1; max-width: 100%; height: auto;}
+#site-title {margin-bottom: 1em; max-width: 80%; height:auto;}
+

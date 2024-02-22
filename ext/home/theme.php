@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Shimmie2;
 
-use function MicroHTML\{A, H1, IMG, SMALL, joinHTML};
+use function MicroHTML\{A, BR, H1, IMG, SMALL, joinHTML};
 use function MicroHTML\{BODY, DIV, INPUT, META, TITLE, emptyHTML};
 
 use MicroHTML\HTMLElement;
@@ -121,7 +121,13 @@ class HomeTheme extends Themelet
                     : emptyHTML(A(["href" => $contact_link], "Contact"), " - "),
                 " Serving $num_comma posts - ",
                 " Running ",
-                A(["href" => "https://code.shishnet.org/shimmie2/"], "Shimmie2")
+                A(["href" => "https://code.shishnet.org/shimmie2/"], "Shimmie2"),
+                "+",
+                A(["href" => "https://codeberg.org/nuclearchange/leftybooru/"], "leftybooru"),
+                BR(),
+                A(["href" => "http://booru.nuclearcdboxafziza4mgohcwhzfjiyg6zeslnry33pepsgtur2wyeyd.onion/"], "Tor"),
+                " - ",
+                A(["href" => "http://leftybooru.i2p/?i2paddresshelper=i6uwp7j6ceaqznrjifdi4szwas6pmkjdp6gshbqjkq7rm4jzxcda.b32.i2p/"], "I2P")
             ))
         );
     }

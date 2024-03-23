@@ -115,8 +115,14 @@ function main(): int
         if (is_a($e, \Shimmie2\UserError::class)) {
             Ctx::$page->set_mode(PageMode::PAGE);
             Ctx::$page->set_code($e->http_code);
-            Ctx::$page->set_title("Error");
-            Ctx::$page->add_block(new Block(null, \MicroHTML\SPAN($e->getMessage())));
+            if ($e->http_code == 404) {
+                Ctx::$page->set_title("404 - Not found");
+                Ctx::$page->add_block(new Block(null, \MicroHTML\SPAN($e->getMessage())));
+                Ctx::$page->add_block(new Block(null, \MicroHTML\IMG(["src" => "/ext/four_oh_four/404.webp", "style" => "max-width: 100%;"])));
+            } else {
+                Ctx::$page->set_title("Error");
+                Ctx::$page->add_block(new Block(null, \MicroHTML\SPAN($e->getMessage())));
+            }
             Ctx::$page->display();
         } else {
             _fatal_error($e);

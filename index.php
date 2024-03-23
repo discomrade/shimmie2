@@ -108,8 +108,14 @@ try {
     if (is_a($e, \Shimmie2\UserError::class)) {
         $page->set_mode(PageMode::PAGE);
         $page->set_code($e->http_code);
-        $page->set_title("Error");
-        $page->add_block(new Block(null, \MicroHTML\SPAN($e->getMessage())));
+        if ($e->http_code == 404) {
+            $page->set_title("404 - Not found");
+            $page->add_block(new Block(null, \MicroHTML\SPAN($e->getMessage())));
+            $page->add_block(new Block(null, \MicroHTML\IMG(["src" => "/ext/four_oh_four/404.webp", "style" => "max-width: 100%;"])));
+        } else {
+            $page->set_title("Error");
+            $page->add_block(new Block(null, \MicroHTML\SPAN($e->getMessage())));
+        }
         $page->display();
     } else {
         _fatal_error($e);

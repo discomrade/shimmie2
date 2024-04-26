@@ -72,7 +72,7 @@ class Yotsuba_BUserPageTheme extends UserPageTheme
 
         $tac = send_event(new TextFormattingEvent($tac))->formatted;
 
-        $reca = "<tr><td colspan='2'>".captcha_get_html()."</td></tr>";
+        $reca = "<tr><td colspan='2'>".captcha_get_html(false)."</td></tr>";
 
         $email_required = (
             $config->get_bool("user_email_required") &&

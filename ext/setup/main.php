@@ -426,7 +426,7 @@ class Setup extends Extension
         $sb = $event->panel->create_new_block("Remote API Integration");
         $sb->add_label("<a href='https://akismet.com/'>Akismet</a>");
         $sb->add_text_option("comment_wordpress_key", "<br>API key: ");
-        $sb->add_label("<br>&nbsp;<br><a href='https://www.google.com/recaptcha/admin'>ReCAPTCHA</a>");
+        $sb->add_label("<br>&nbsp;<br><a href='https://hcaptcha.com/'>hCaptcha</a>");
         $sb->add_text_option("api_recaptcha_privkey", "<br>Secret key: ");
         $sb->add_text_option("api_recaptcha_pubkey", "<br>Site key: ");
     }

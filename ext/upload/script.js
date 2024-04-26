@@ -24,11 +24,11 @@ function updateTracker() {
                 lockbtn = true;
                 input.style = 'color:red';
             } else {
-                input.style = 'color:initial';
+                input.style = '';
             }
         } else {
             if(cancelbtn) cancelbtn.style.visibility = 'hidden';
-            input.style = 'color:initial';
+            input.style = '';
         }
     });
 
@@ -39,7 +39,7 @@ function updateTracker() {
             lockbtn = true;
             tracker.style = 'color:red';
         } else {
-            tracker.style = 'color:initial';
+            tracker.style = '';
         }
     } else {
         tracker.innerText = '0MB';

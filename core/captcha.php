@@ -8,8 +8,6 @@ namespace Shimmie2;
 * CAPTCHA abstraction                                                       *
 \* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
-use ReCaptcha\ReCaptcha;
-
 function captcha_get_html(bool $anon_only): string
 {
     global $config, $user;
@@ -23,8 +21,8 @@ function captcha_get_html(bool $anon_only): string
         $r_publickey = $config->get_string("api_recaptcha_pubkey");
         if (!empty($r_publickey)) {
             $captcha = "
-				<div class=\"g-recaptcha\" data-sitekey=\"{$r_publickey}\"></div>
-				<script type=\"text/javascript\" src=\"https://www.google.com/recaptcha/api.js\"></script>";
+				<div class=\"h-captcha\" data-sitekey=\"{$r_publickey}\"></div>
+				<script src='https://js.hcaptcha.com/1/api.js?recaptchacompat=off' async defer></script>";
         } /*else {
             session_start();
             $captcha = \Securimage::getCaptchaHtml(['securimage_path' => './vendor/dapphp/securimage/']);
@@ -44,14 +42,26 @@ function captcha_check(bool $anon_only): bool
     if ($anon_only && !$user->is_anonymous()) {
         return true;
     }
-
     $r_privatekey = $config->get_string('api_recaptcha_privkey');
     if (!empty($r_privatekey)) {
-        $recaptcha = new ReCaptcha($r_privatekey);
-        $resp = $recaptcha->verify($_POST['g-recaptcha-response'] ?? "", get_real_ip());
+        if (!empty($_POST['h-captcha-response'])) {
+            $data = [
+                'secret' => $r_privatekey,
+                'response' => $_POST['h-captcha-response']
+            ];
+            $verify = curl_init();
+            curl_setopt($verify, CURLOPT_URL, "https://hcaptcha.com/siteverify");
+            curl_setopt($verify, CURLOPT_POST, true);
+            curl_setopt($verify, CURLOPT_POSTFIELDS, http_build_query($data));
+            curl_setopt($verify, CURLOPT_RETURNTRANSFER, true);
+            $response = curl_exec($verify);
 
-        if (!$resp->isSuccess()) {
-            log_info("core", "Captcha failed (ReCaptcha): " . implode("", $resp->getErrorCodes()));
+            if (is_string($response)) {
+                $responseData = json_decode($response);
+                if ($responseData->success) {
+                    return true;
+                }
+            }
             return false;
         }
     } /*else {

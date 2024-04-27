@@ -544,7 +544,7 @@ class Media extends Extension
         string $resize_type = self::RESIZE_TYPE_FIT,
         int $output_quality = 80,
         bool $minimize = false,
-        bool $allow_upscale = true
+        bool $allow_upscale = false
     ): void {
         global $config;
 
@@ -659,7 +659,7 @@ class Media extends Extension
         string $alpha_color = Media::DEFAULT_ALPHA_CONVERSION_COLOR,
         string $resize_type = self::RESIZE_TYPE_FIT,
         int $output_quality = 80,
-        bool $allow_upscale = true
+        bool $allow_upscale = false
     ): void {
         $width = $info[0];
         $height = $info[1];

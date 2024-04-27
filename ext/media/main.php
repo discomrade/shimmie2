@@ -456,6 +456,8 @@ final class Media extends Extension
         } elseif ($output_mime->base == MimeType::WEBP && $output_mime->parameters == MimeType::LOSSLESS_PARAMETER) {
             $command->add_args("-define", "webp:lossless=true");
             $command->add_args("-quality", "100");
+        } elseif ($output_mime->base == MimeType::WEBP) {
+            $command->add_args("-define", "webp:method=6");
         } else {
             $command->add_args("-quality", (string)Ctx::$config->req(TranscodeImageConfig::QUALITY));
         }

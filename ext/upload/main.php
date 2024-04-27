@@ -145,6 +145,11 @@ class Upload extends Extension
         $tes["fopen"] = "fopen";
         $tes["WGet"] = "wget";
 
+        $cap = [];
+        $cap["Disabled"] = 0;
+        $cap["Required for anonymous uploads"] = 1;
+        $cap["Required for all user uploads"] = 2;
+
         $sb = $event->panel->create_new_block("Upload");
         $sb->position = 10;
         // Output the limits from PHP so the user has an idea of what they can set.
@@ -158,6 +163,7 @@ class Upload extends Extension
         $sb->start_table();
         $sb->add_bool_option(UploadConfig::MIME_CHECK_ENABLED, "Enable upload MIME checks", true);
         $sb->add_multichoice_option(UploadConfig::ALLOWED_MIME_STRINGS, $this->get_mime_options(), "Allowed MIME uploads", true);
+        $sb->add_choice_option(UploadConfig::CAPTCHA, $cap, "<br/>Require CAPTCHA: ");
         $sb->end_table();
     }
 
@@ -205,7 +211,7 @@ class Upload extends Extension
 
     public function onPageRequest(PageRequestEvent $event): void
     {
-        global $cache, $page, $user;
+        global $cache, $config, $page, $user;
 
         if ($user->can(Permissions::CREATE_IMAGE)) {
             if ($this->is_full) {
@@ -224,6 +230,10 @@ class Upload extends Extension
         if ($event->page_matches("upload", method: "POST", permission: Permissions::CREATE_IMAGE)) {
             if ($this->is_full) {
                 throw new ServerError("Can't upload images: disk nearly full");
+            }
+            $cap = $config->get_int(UploadConfig::CAPTCHA);
+            if ($cap > 0 && !captcha_check($cap == 1)) {
+                throw new PermissionDenied("Error in captcha");
             }
             $results = [];
 

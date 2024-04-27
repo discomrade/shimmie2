@@ -367,12 +367,13 @@ final class Media extends Extension
         if (is_null($output_mime)) {
             $output_mime = $input_mime;
         }
+
         if (is_null($alpha_color)) {
             $alpha_color = Ctx::$config->req(ThumbnailConfig::ALPHA_COLOR);
         }
 
         if ($output_mime->base === MimeType::WEBP && self::is_lossless($input_path, $input_mime)) {
-            $output_mime = new MimeType(MimeType::WEBP_LOSSLESS);
+            //$output_mime = new MimeType(MimeType::WEBP_LOSSLESS);
         }
 
         $command = new CommandBuilder(Ctx::$config->req(MediaConfig::CONVERT_PATH));

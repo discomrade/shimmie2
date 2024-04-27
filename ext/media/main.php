@@ -613,6 +613,9 @@ class Media extends Extension
 
 
         switch ($output_mime) {
+            case MimeType::WEBP:
+                $args .= ' -define webp:method=6';
+                break;
             case MimeType::WEBP_LOSSLESS:
                 $args .= ' -define webp:lossless=true';
                 break;

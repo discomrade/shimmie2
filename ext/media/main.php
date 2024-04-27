@@ -362,7 +362,7 @@ final class Media extends Extension
         ResizeType $resize_type = ResizeType::FIT,
         int $output_quality = 80,
         bool $minimize = false,
-        bool $allow_upscale = true
+        bool $allow_upscale = false
     ): void {
         if (is_null($output_mime)) {
             $output_mime = $input_mime;
@@ -489,7 +489,7 @@ final class Media extends Extension
         ?string $alpha_color = null,
         ResizeType $resize_type = ResizeType::FIT,
         int $output_quality = 80,
-        bool $allow_upscale = true
+        bool $allow_upscale = false
     ): void {
         $width = $info[0];
         $height = $info[1];

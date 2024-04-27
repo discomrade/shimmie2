@@ -559,7 +559,7 @@ class Media extends Extension
         }
 
         if ($output_mime == MimeType::WEBP && self::is_lossless($input_path, $input_mime)) {
-            $output_mime = MimeType::WEBP_LOSSLESS;
+            // $output_mime = MimeType::WEBP_LOSSLESS;
         }
 
         $bg = "\"$alpha_color\"";

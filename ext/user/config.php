@@ -12,6 +12,7 @@ class UserAccountsConfig extends ConfigGroup
     public const LOGIN_TAC = "login_tac";
     public const LOGIN_TAC_BBCODE = "login_tac_bbcode";
     public const USER_EMAIL_REQUIRED = "user_email_required";
+    public const SIGNUP_CAPTCHA = "signup_captcha";
 }
 
 class AvatarConfig extends ConfigGroup

@@ -139,6 +139,7 @@ class UserPage extends Extension
         $config->set_default_int(UserAccountsConfig::LOGIN_MEMORY, 365);
         $config->set_default_bool(UserAccountsConfig::LOGIN_TAC_BBCODE, true);
         $config->set_default_bool(UserAccountsConfig::USER_EMAIL_REQUIRED, false);
+        $config->set_default_bool(UserAccountsConfig::SIGNUP_CAPTCHA, true);
 
         $config->set_default_string(AvatarConfig::HOST, "none");
         $config->set_default_int(AvatarConfig::GRAVATAR_SIZE, 80);
@@ -417,6 +418,7 @@ class UserPage extends Extension
         $sb->add_bool_option(UserConfig::ENABLE_API_KEYS, "Enable user API keys", true);
         $sb->add_bool_option(UserAccountsConfig::SIGNUP_ENABLED, "Allow new signups", true);
         $sb->add_bool_option(UserAccountsConfig::USER_EMAIL_REQUIRED, "Require email address", true);
+        $sb->add_bool_option(UserAccountsConfig::SIGNUP_CAPTCHA, "Require CAPTCHA for signup", true);
         $sb->add_longtext_option("login_tac", "Terms &amp; Conditions", true);
         $sb->add_choice_option(
             "user_loginshowprofile",
@@ -521,7 +523,7 @@ class UserPage extends Extension
         } catch (UserNotFound $ex) {
             // user not found is good
         }
-        if (!captcha_check()) {
+        if ($config->get_bool(UserAccountsConfig::SIGNUP_CAPTCHA) && !captcha_check(true)) {
             throw new UserCreationException("Error in captcha");
         }
         if ($event->password != $event->password2) {

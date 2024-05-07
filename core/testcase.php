@@ -47,6 +47,8 @@ try {
                 send_event(new ImageDeletionEvent(Image::by_id_ex((int)$image_id), true));
             }
             $page = new Page();
+            // Reload users from the database in case they were modified
+            UserClass::loadClasses();
 
             $_tracer->end();  # setUp
             $_tracer->begin("test");

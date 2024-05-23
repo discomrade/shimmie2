@@ -21,8 +21,27 @@ function captcha_get_html(bool $anon_only): string
         $r_publickey = $config->get_string("api_recaptcha_pubkey");
         if (!empty($r_publickey)) {
             $captcha = "
-				<div class=\"h-captcha\" data-sitekey=\"{$r_publickey}\"></div>
-				<script src='https://js.hcaptcha.com/1/api.js?recaptchacompat=off' async defer></script>";
+				<div id=\"captcha\" style=\"width:300px;height:74px;background:var(--input-submit);
+				border:1px solid var(--input-submit-border);\" onclick=\"loadHCaptcha()\">
+					<noscript>Captcha requires JavaScript.</noscript>
+					<div style=\"display:flex;justify-content:center;align-items:center;height:100%;\">
+						Click to load HCaptcha
+					</div>
+					<script>
+						function loadHCaptcha() {
+							const divEle = document.getElementById(\"captcha\");
+							divEle.innerHTML = ``;
+							const newDiv = document.createElement(\"div\");
+							newDiv.innerHTML = `
+								<div class=\"h-captcha\" data-sitekey=\"c4b4f6a7-c1e3-40d3-af6c-f950bda8d788\"></div>
+							`;
+							divEle.appendChild(newDiv);
+							const newScript = document.createElement(\"script\");
+							newScript.setAttribute(\"src\", \"https://js.hcaptcha.com/1/api.js?recaptchacompat=off\");
+							divEle.appendChild(newScript);
+						}
+					</script>
+				</div>";
         } /*else {
             session_start();
             $captcha = \Securimage::getCaptchaHtml(['securimage_path' => './vendor/dapphp/securimage/']);

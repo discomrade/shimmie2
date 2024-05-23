@@ -41,8 +41,21 @@ class CommentListTheme extends Themelet
             $image = $pair[0];
             $comments = $pair[1];
 
-            $comment_html = emptyHTML();
+            $thumb_html = $this->build_thumb($image);
 
+            $image_id = $image->id;
+            $image_posted = $image->posted;
+            $h_owner = html_escape($image->get_owner()->name);
+            ;
+            $image_owner = A(["href" => make_link("user/$h_owner")], $h_owner);
+            $metadata_html = DIV(
+                ["style" => "margin:0.6em 0;"],
+                DIV("ID: $image_id"),
+                DIV("Uploader: ", $image_owner),
+                DIV("Posted: $image_posted")
+            );
+
+            $comment_html = emptyHTML();
             $comment_count = count($comments);
             if ($comment_limit > 0 && $comment_count > $comment_limit) {
                 $comment_html->appendChild(P("showing $comment_limit of $comment_count comments"));
@@ -73,6 +86,7 @@ class CommentListTheme extends Themelet
             $html = DIV(
                 ["class" => "comment_big_list"],
                 $this->build_thumb($image),
+                DIV(["class" => "post_metadata"], $metadata_html),
                 DIV(["class" => "comment_list"], $comment_html)
             );
 

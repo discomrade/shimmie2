@@ -49,6 +49,18 @@ class CommentListTheme extends Themelet
             $comments = $pair[1];
 
             $thumb_html = $this->build_thumb($image);
+
+            $image_id = $image->id;
+            $image_posted = $image->posted;
+            $h_owner = html_escape($image->get_owner()->name);
+            ;
+            $image_owner = "<a href='".make_link("user/$h_owner")."'>$h_owner</a>";
+            $metadata_html = "<div style='margin:0.6em 0;'>
+                                  <div>ID: $image_id</div>
+                                  <div>Uploader:  $image_owner</div>
+                                  <div>Posted: $image_posted</div>
+                              </div>
+                              ";
             $comment_html = "";
 
             $comment_count = count($comments);
@@ -81,11 +93,12 @@ class CommentListTheme extends Themelet
             $html  = '
 				<div class="comment_big_list">
 					'.$thumb_html.'
+					<div class="post_metadata">'.$metadata_html.'</div>
 					<div class="comment_list">'.$comment_html.'</div>
 				</div>
 			';
 
-            $page->add_block(new Block($image->id.': '.$image->get_tag_list(), rawHTML($html), "main", $position++, "comment-list-list"));
+            $page->add_block(new Block(null, rawHTML($html), "main", $position++, "comment-list-list"));
         }
     }
 

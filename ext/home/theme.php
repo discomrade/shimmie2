@@ -104,7 +104,7 @@ class HomeTheme extends Themelet
             $counter_digits[] = IMG([
                 'class' => 'counter-img',
                 'alt' => $cur,
-                'src' => "$base_href/ext/home/counters/$counter_dir/$cur.gif"
+                'src' => "$base_href/ext/home/counters/$counter_dir/$cur.webp"
             ]);
         }
         return DIV(["class" => "space", "id" => "counter"], joinHTML('', $counter_digits));

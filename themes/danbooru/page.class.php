@@ -99,12 +99,8 @@ class Page extends BasePage
         }
 
         $custom_sublinks = "";
-        if (!empty($sub_links)) {
-            $custom_sublinks = "<div class='sbar'>";
-            foreach ($sub_links as $nav_link) {
-                $custom_sublinks .= "<li>".$this->navlinks($nav_link->link, $nav_link->description, $nav_link->active)."</li>";
-            }
-            $custom_sublinks .= "</div>";
+        foreach ($sub_links as $nav_link) {
+            $custom_sublinks .= "<li>".$this->navlinks($nav_link->link, $nav_link->description, $nav_link->active)."</li>";
         }
 
         // bzchan: failed attempt to add heading after title_link (failure was it looked bad)

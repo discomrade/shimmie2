@@ -46,7 +46,7 @@ class CommentListTheme extends Themelet
             $image_id = $image->id;
             $image_posted = $image->posted;
             $h_owner = html_escape($image->get_owner()->name);
-            ;
+
             $image_owner = A(["href" => make_link("user/$h_owner")], $h_owner);
             $metadata_html = DIV(
                 ["style" => "margin:0.6em 0;"],
@@ -90,7 +90,7 @@ class CommentListTheme extends Themelet
                 DIV(["class" => "comment_list"], $comment_html)
             );
 
-            $page->add_block(new Block($image->id.': '.$image->get_tag_list(), $html, "main", $position++, "comment-list-list"));
+            $page->add_block(new Block(null, $html, "main", $position++, "comment-list-list"));
         }
     }
 

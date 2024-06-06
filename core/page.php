@@ -6,7 +6,7 @@ namespace Shimmie2;
 
 use MicroHTML\HTMLElement;
 
-use function MicroHTML\{emptyHTML, rawHTML, HTML, HEAD, BODY, TITLE, LINK, SCRIPT, A, B, joinHTML, BR, H1, HEADER as HTML_HEADER, NAV, ARTICLE, FOOTER, SECTION, H3, DIV};
+use function MicroHTML\{emptyHTML, rawHTML, HTML, HEAD, BODY, TITLE, LINK, META, SCRIPT, A, B, joinHTML, BR, H1, HEADER as HTML_HEADER, NAV, ARTICLE, FOOTER, SECTION, H3, DIV};
 
 require_once "core/event.php";
 
@@ -381,6 +381,11 @@ class Page
 
         $data_href = get_base_href();
         $theme_name = $config->get_string(SetupConfig::THEME, 'default');
+
+        $this->add_html_header(META([
+            "name" => "viewport",
+            "content" => "width=device-width, initial-scale=1"
+        ]), 40);
 
         # static handler will map these to themes/foo/static/bar.ico or ext/static_files/static/bar.ico
         $this->add_html_header(LINK([

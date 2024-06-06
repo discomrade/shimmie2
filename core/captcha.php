@@ -20,6 +20,10 @@ function captcha_get_html(bool $anon_only): string
     if (!$anon_only || $user->is_anonymous()) {
         $r_publickey = $config->get_string("api_recaptcha_pubkey");
         if (!empty($r_publickey)) {
+            // HACK: workaround for .onion and .i2p
+            if (ip_in_range(get_real_ip(), "0.0.0.0/8") || ip_in_range(get_real_ip(), "127.0.0.0/8")) {
+                return "<input type='text' name='anon-test' placeholder='Who is the mascot of /leftypol/?' size='24' style='width: auto;'>";
+            }
             $captcha = "
 				<div id=\"captcha\" style=\"width:300px;height:74px;background:var(--input-submit);
 				border:1px solid var(--input-submit-border);\" onclick=\"loadHCaptcha()\">
@@ -63,6 +67,13 @@ function captcha_check(bool $anon_only): bool
     }
     $r_privatekey = $config->get_string('api_recaptcha_privkey');
     if (!empty($r_privatekey)) {
+        // HACK: workaround for .onion and .i2p
+        if (ip_in_range(get_real_ip(), "0.0.0.0/8") || ip_in_range(get_real_ip(), "127.0.0.0/8")) {
+            if (!empty($_POST['anon-test'])) {
+                return str_contains($_POST['anon-test'], "lunya");
+            }
+            return false;
+        }
         if (!empty($_POST['h-captcha-response'])) {
             $data = [
                 'secret' => $r_privatekey,

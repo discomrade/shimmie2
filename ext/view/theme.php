@@ -16,7 +16,7 @@ class ViewPostTheme extends Themelet
 
         $h_metatags = str_replace(" ", ", ", $image->get_tag_list());
         $page->add_html_header(META(["name" => "keywords", "content" => $h_metatags]));
-        $page->add_html_header(META(["property" => "og:title", "content" => $h_metatags]));
+        $page->add_html_header(META(["property" => "og:title", "content" => "#{$image->id}: $h_metatags"]));
         $page->add_html_header(META(["property" => "og:type", "content" => "article"]));
         $page->add_html_header(META(["property" => "og:image", "content" => make_http($image->get_image_link())]));
         $page->add_html_header(META(["property" => "og:url", "content" => make_http(make_link("post/view/{$image->id}"))]));

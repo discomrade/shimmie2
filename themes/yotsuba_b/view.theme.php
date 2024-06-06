@@ -16,6 +16,7 @@ class Yotsuba_BViewPostTheme extends ViewPostTheme
     public function display_page(Image $image, array $editor_parts): void
     {
         global $page;
+        $page->set_title("#{$image->id}: ".$image->get_tag_list());
         $page->set_heading(html_escape($image->get_tag_list()));
         $page->add_block(new Block("Search", $this->build_navigation($image), "left", 0));
         $page->add_block(new Block("Information", $this->build_information($image), "left", 15));

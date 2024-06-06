@@ -383,6 +383,8 @@ class BasePage
         $data_href = get_base_href();
         $theme_name = $config->get_string(SetupConfig::THEME, 'default');
 
+        $this->add_html_header("<meta name=viewport content='width=device-width, initial-scale=1'>", 40);
+
         # static handler will map these to themes/foo/static/bar.ico or ext/static_files/static/bar.ico
         $this->add_html_header("<link rel='icon' type='image/x-icon' href='$data_href/favicon.ico'>", 41);
         $this->add_html_header("<link rel='apple-touch-icon' href='$data_href/apple-touch-icon.png'>", 42);

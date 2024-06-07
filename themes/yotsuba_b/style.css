@@ -368,7 +368,6 @@ ARTICLE /*TABLE*/ {
 	/*margin: auto;*/
 }
 
-
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 *                     specific page types                        *
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
@@ -440,3 +439,45 @@ BODY[data-userclass="anonymous"] .thumb[data-rating="e"] IMG {
 	filter: blur(5px);
 }
 */
+
+
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+*                       mobile screens                           *
+* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+
+@media screen and (width <= 800px) {
+	BODY.layout-grid {
+		grid-template-columns: auto;
+		margin: 0;
+	}
+	HEADER {
+		grid-column: 1;
+		grid-row: 1;
+	}
+	ARTICLE {
+		grid-column: 1;
+		grid-row: 2;
+	}
+	NAV {
+		grid-column: 1;
+		grid-row: 3;
+		margin: auto;
+		width: auto;
+	}
+	FOOTER {
+		grid-column: 1;
+		grid-row: 4;
+	}
+	.blockbody {
+		margin: 0;
+	}
+	.shm-image-list {
+		grid-template-columns: repeat( auto-fill, calc(var(--thumb-width) + 24px) );
+		justify-content: center;
+	}
+	.thumb {
+		margin: 5px;
+		height: 160px;
+		width: 160px;
+	}
+}

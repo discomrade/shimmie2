@@ -207,7 +207,7 @@ final class Wiki extends Extension
                 $this->theme->display_page($content, self::get_page("wiki:sidebar"));
             }
         } elseif ($event->page_matches("wiki")) {
-            $page->set_redirect(make_link("wiki/Index"));
+            $page->set_redirect(make_link("wiki/help:home"));
         }
     }
 
@@ -219,7 +219,7 @@ final class Wiki extends Extension
     public function onPageSubNavBuilding(PageSubNavBuildingEvent $event): void
     {
         if ($event->parent == "wiki") {
-            $event->add_nav_link(make_link('wiki/rules'), "Rules");
+            $event->add_nav_link(make_link('wiki/help:rules'), "Rules");
             $event->add_nav_link(make_link('ext_doc/wiki'), "Help");
             $event->add_nav_link(make_link('wiki/wiki:list'), "Page list");
         }

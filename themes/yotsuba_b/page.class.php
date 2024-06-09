@@ -96,7 +96,18 @@ class Yotsuba_BPage extends Page
 
         $custom_links = emptyHTML();
         foreach ($nav_links as $nav_link) {
-            $custom_links->appendChild(LI($this->navlinks($nav_link->link, $nav_link->description, $nav_link->active)));
+            // HACK add in alert for reported posts
+            if ($nav_link->description == "System") {
+                $h_count = "";
+                if (ReportImage::is_enabled() && Ctx::$user->can(ReportImagePermission::VIEW_IMAGE_REPORT)) {
+                    $ri = new ReportImage();
+                    $count = $ri->count_reported_images();
+                    $h_count = $count > 0 ? "($count)" : "";
+                }
+                $custom_links->appendChild(LI($this->navlinks($nav_link->link, $nav_link->description, $nav_link->active), $h_count));
+            } else {
+                $custom_links->appendChild(LI($this->navlinks($nav_link->link, $nav_link->description, $nav_link->active)));
+            }
         }
 
         $custom_sublinks = "";

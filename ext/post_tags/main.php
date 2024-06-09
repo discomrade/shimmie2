@@ -155,7 +155,7 @@ final class PostTags extends Extension
             $my_tags = $event->params["tags{$event->slot}"] ?? "";
             $tags = Tag::explode("$common_tags $my_tags");
             // HACK: if user supplied less than 5 tags, add "tagme"
-            if ($user->email != "test@test.com" && $user->email != "demo@demo.com") {
+            if (Ctx::$user->email != "test@test.com" && Ctx::$user->email != "demo@demo.com") {
                 if (count($tags) < 5 && !in_array("meta:tagme", $tags)) {
                     array_push($tags, "meta:tagme");
                 }

@@ -75,7 +75,7 @@ class Yotsuba_BViewPostTheme extends ViewPostTheme
         //$h_pin = $this->build_pin($image);
         $h_search = "
 			<form action='".search_link()."' method='GET'>
-				<input name='search' type='text'  style='width:75%'>
+				<input name='search' type='text' class='autocomplete_tags' style='width:75%'>
 				<input type='submit' value='Go' style='width:20%'>
 				<input type='hidden' name='q' value='post/list'>
 			</form>

@@ -191,7 +191,9 @@ class Upload extends Extension
     {
         if ($event->parent == "upload") {
             if (Extension::is_enabled(WikiInfo::KEY)) {
-                $event->add_nav_link("upload_guidelines", new Link('wiki/upload_guidelines'), "Guidelines");
+                $event->add_nav_link("rules", new Link('wiki/help:rules#bb-rules'), "Rules");
+                $event->add_nav_link("tagging_guidelines", new Link('wiki/help:rules#bb-tagging'), "Tagging Guide");
+                $event->add_nav_link("ratings", new Link('wiki/help:rules#bb-ratings'), "Rating Guide");
             }
         }
     }

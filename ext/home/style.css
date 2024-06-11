@@ -1,7 +1,7 @@
 #logo {margin-bottom: 1em; max-width: 80%; height:auto;}
 div#front-page {text-align:center;}
-div#front-page .space {margin-bottom: 1em;}
-div#front-page div#links a {display: inline-block; margin: 0 0.5em;}
+div#front-page .space {margin: 0.5em 0;}
+div#front-page div#links a {display: inline-block; margin: 0 0.5em; font-size: larger; font-weight: 800;}
 div#front-page li {list-style-type: none; margin: 0;}
 @media (max-width: 800px) {
 	div#front-page h1 {font-size: 3rem; margin-top: 0.5em; margin-bottom: 0.5em;}

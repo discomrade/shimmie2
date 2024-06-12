@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Shimmie2;
 
-use function MicroHTML\{A, DIV, INPUT, LINK, META, P, TABLE, TD, TR, emptyHTML, joinHTML};
+use function MicroHTML\{A, DIV, INPUT, LINK, META, P, SPAN, TABLE, TD, TR, emptyHTML, joinHTML};
 use function MicroHTML\BR;
 
 use MicroHTML\HTMLElement;
@@ -192,6 +192,9 @@ class ViewPostTheme extends Themelet
         if (RatingsInfo::is_enabled()) {
             $rating = $image['rating'] ?? "?";
             $h_rating = Ratings::rating_to_human($rating);
+            if ($rating == "?") {
+                $h_rating = SPAN(["style" => "color:red;"], $h_rating);
+            }
             $parts[] = emptyHTML("Rating: ", A(["href" => search_link(["rating=$rating"])], $h_rating));
         }
 

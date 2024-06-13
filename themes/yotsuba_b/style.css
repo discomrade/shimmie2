@@ -174,7 +174,10 @@ A:hover {
 	text-decoration: none;
 	color: var(--link-hover);
 }
-
+CODE {
+	background: #DEDEDE;
+	font-size: 0.9rem;
+}
 UL {
 	text-align: left;
 }

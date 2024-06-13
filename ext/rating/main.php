@@ -35,7 +35,7 @@ function add_rating(ImageRating $rating): void
     ImageRating::$known_ratings[$rating->code] = $rating;
 }
 
-add_rating(new ImageRating("?", "Unrated", "unrated", 99999));
+add_rating(new ImageRating("?", "Unrated", "unrated", -1));
 add_rating(new ImageRating("s", "Safe", "safe", 0));
 add_rating(new ImageRating("q", "Questionable", "questionable", 500));
 add_rating(new ImageRating("e", "Explicit", "explicit", 1000));

@@ -45,6 +45,19 @@ function updateTracker() {
         tracker.innerText = '0MB';
     }
     upbtn.disabled = lockbtn;
+
+    // if ratings are enabled, make a custom rating required (Unrated is invalid)
+    document.querySelectorAll("#large_upload_form input[type='file']").forEach((input) => {
+        if (input.files.length) {
+            id = input.id.replace("data","");
+            rating = document.querySelector(`[name=rating${id}]`);
+            // change Unrated value to empty, this triggers the 'required' attr of select element
+            unrated = rating.querySelector("[value='?']");
+            if (unrated) {
+                unrated.value = "";
+            }
+        }
+    });
 }
 document.addEventListener('DOMContentLoaded', () => {
     if(document.getElementById("upload_size_tracker")) {

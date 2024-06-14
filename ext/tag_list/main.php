@@ -120,36 +120,13 @@ class TagList extends Extension
 
     private function add_related_block(Page $page, Image $image): void
     {
-        global $database, $config;
+        global $config;
 
-        $omitted_tags = self::get_omitted_tags();
-        $starting_tags = $database->get_col("SELECT tag_id FROM image_tags WHERE image_id = :image_id", ["image_id" => $image->id]);
-
-        $starting_tags = array_diff($starting_tags, $omitted_tags);
-
-        if (count($starting_tags) === 0) {
-            // No valid starting tags, so can't look anything up
-            return;
-        }
-
-        $query = "SELECT tags.* FROM tags INNER JOIN (
-                SELECT it2.tag_id
-                FROM image_tags AS it1
-                    INNER JOIN image_tags AS it2 ON it1.image_id=it2.image_id
-                        AND it2.tag_id NOT IN (".implode(",", array_merge($omitted_tags, $starting_tags)).")
-                WHERE
-                    it1.tag_id IN (".implode(",", $starting_tags).")
-                GROUP BY it2.tag_id
-            ) A ON A.tag_id = tags.id
-			ORDER BY count DESC
-			LIMIT :tag_list_length
-		";
-
-        $args = ["tag_list_length" => $config->get_int(TagListConfig::LENGTH)];
-
-        $tags = $database->get_all($query, $args);
-        if (count($tags) > 0) {
-            $this->theme->display_related_block($page, $tags, "Related Tags");
+        if (isset($image->tag_array)) {
+            $tags = self::get_related_tags($image->tag_array, $config->get_int(TagListConfig::LENGTH));
+            if (!empty($tags)) {
+                $this->theme->display_related_block($page, $tags, "Related Tags");
+            }
         }
     }
 
@@ -260,7 +237,7 @@ class TagList extends Extension
                 }
             }
 
-            if (count($starting_tags) > 5 || count($starting_tags) === 0) {
+            if (count($starting_tags) > 20 || count($starting_tags) === 0) {
                 return [];
             }
 

@@ -26,9 +26,8 @@ class PostSourceTheme extends Themelet
     {
         global $user;
         return SHM_POST_INFO(
-            "Source Link",
+            "Source",
             DIV(
-                ["style" => "overflow: hidden; white-space: nowrap; max-width: 350px; text-overflow: ellipsis;"],
                 $this->format_source($image->get_source())
             ),
             $user->can(Permissions::EDIT_IMAGE_SOURCE) ? INPUT(["type" => "text", "name" => "source", "value" => $image->get_source()]) : null,
@@ -39,15 +38,11 @@ class PostSourceTheme extends Themelet
     protected function format_source(?string $source = null): HTMLElement
     {
         if (!empty($source)) {
-            if (!str_contains($source, "://")) {
-                $source = "https://" . $source;
+            if (str_starts_with($source, "http")) {
+                return A(["href" => $source], $source);
+            } else {
+                return emptyHTML($source);
             }
-            $proto_domain = explode("://", $source);
-            $h_source = $proto_domain[1];
-            if (str_ends_with($h_source, "/")) {
-                $h_source = substr($h_source, 0, -1);
-            }
-            return A(["href" => $source], $h_source);
         }
         return rawHTML("Unknown");
     }

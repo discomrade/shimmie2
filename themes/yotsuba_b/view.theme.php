@@ -52,8 +52,12 @@ class Yotsuba_BViewPostTheme extends ViewPostTheme
 
 
         if (!is_null($image->source)) {
-            $h_source = html_escape(make_http($image->source));
-            $html .= "<br>Source: <a href='$h_source'>link</a>";
+            if (str_starts_with($image->source, "http")) {
+                $h_source = html_escape(make_http($image->source));
+                $html .= "<br>Source: <a href='$h_source'>link</a>";
+            } else {
+                $html .= "<br>Source: ".html_escape($image->source);
+            }
         }
 
         if (Extension::is_enabled(RatingsInfo::KEY)) {

@@ -127,8 +127,8 @@ class TagHistory extends Extension
     public function onPageSubNavBuilding(PageSubNavBuildingEvent $event): void
     {
         global $user;
-        if ($event->parent === "system") {
-            if ($user->can(Permissions::BULK_EDIT_IMAGE_TAG)) {
+        if ($event->parent === "tags") {
+            if ($user->can(Permissions::EDIT_IMAGE_TAG)) {
                 $event->add_nav_link("tag_history", new Link('tag_history/all/1'), "Tag Changes", NavLink::is_active(["tag_history"]));
             }
         }
@@ -138,7 +138,7 @@ class TagHistory extends Extension
     public function onUserBlockBuilding(UserBlockBuildingEvent $event): void
     {
         global $user;
-        if ($user->can(Permissions::BULK_EDIT_IMAGE_TAG)) {
+        if ($user->can(Permissions::EDIT_IMAGE_TAG)) {
             $event->add_link("Tag Changes", make_link("tag_history/all/1"));
         }
     }

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Shimmie2;
 
-use function MicroHTML\{A, DIV, INPUT, TD, TH, TR, emptyHTML};
+use function MicroHTML\{A, DIV, INPUT, TD, TH, TR, emptyHTML, joinHTML};
 
 use MicroHTML\HTMLElement;
 
@@ -25,21 +25,25 @@ class PostSourceTheme extends Themelet
         return SHM_POST_INFO(
             "Source",
             DIV(
-                $this->format_source($image->get_source())
+                self::format_source($image->get_source())
             ),
             Ctx::$user->can(PostSourcePermission::EDIT_IMAGE_SOURCE) ? INPUT(["type" => "text", "name" => "source", "value" => $image->get_source()]) : null,
             link: SourceHistoryInfo::is_enabled() ? make_link("source_history/{$image->id}") : null,
         );
     }
 
-    protected function format_source(?string $source = null): HTMLElement
+    public static function format_source(?string $source = null): HTMLElement
     {
         if (!empty($source)) {
-            if (str_starts_with($source, "http")) {
-                return A(["href" => $source], $source);
-            } else {
-                return emptyHTML($source);
+            $words = [];
+            foreach (explode(' ', $source) as $word) {
+                if (str_starts_with($word, "http") && filter_var($word, FILTER_VALIDATE_URL)) {
+                    $words[] = A(["href" => $word], $word);
+                } else {
+                    $words[] = emptyHTML($word);
+                }
             }
+            return joinHTML(' ', $words);
         }
         return emptyHTML("Unknown");
     }

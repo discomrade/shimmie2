@@ -52,11 +52,22 @@ class Yotsuba_BViewPostTheme extends ViewPostTheme
 
 
         if (!is_null($image->source)) {
-            if (str_starts_with($image->source, "http")) {
-                $h_source = html_escape(make_http($image->source));
-                $html .= "<br>Source: <a href='$h_source'>link</a>";
+            if (!empty($image->source)) {
+                $string = "";
+                foreach (explode(' ', $image->source) as $word) {
+                    $h_word = html_escape($word);
+                    if ($string) {
+                        $string .= ' ';
+                    }
+                    if (str_starts_with($h_word, "http") && filter_var($h_word, FILTER_VALIDATE_URL)) {
+                        $string .= "<a href=\"$h_word\">$h_word</a>";
+                    } else {
+                        $string .= $h_word;
+                    }
+                }
+                $html .= "<br>Source: $string";
             } else {
-                $html .= "<br>Source: ".html_escape($image->source);
+                $html .= "<br>Source: Unknown";
             }
         }
 

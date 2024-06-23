@@ -38,11 +38,18 @@ class PostSourceTheme extends Themelet
     protected function format_source(?string $source = null): HTMLElement
     {
         if (!empty($source)) {
-            if (str_starts_with($source, "http")) {
-                return A(["href" => $source], $source);
-            } else {
-                return emptyHTML($source);
+            $string = "";
+            foreach (explode(' ', $source) as $word) {
+                if ($string) {
+                    $string .= ' ';
+                }
+                if (str_starts_with($word, "http") && filter_var($word, FILTER_VALIDATE_URL)) {
+                    $string .= A(["href" => $word], $word);
+                } else {
+                    $string .= emptyHTML($word);
+                }
             }
+            return rawHTML($string);
         }
         return rawHTML("Unknown");
     }

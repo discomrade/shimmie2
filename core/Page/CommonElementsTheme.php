@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Shimmie2;
 
-use function MicroHTML\{A, B, BR, IMG, LINK, emptyHTML, joinHTML};
+use function MicroHTML\{A, B, BR, DIV, IMG, LINK, emptyHTML, joinHTML};
 
 use MicroHTML\HTMLElement;
 
@@ -107,6 +107,14 @@ class CommonElementsTheme extends Themelet
             }
         }
 
+        if (str_starts_with((string)$image->get_mime(), "video")) {
+            $thumb_flex_head = DIV(["style" => "margin:auto;"], "\u{A0}");
+            $thumb_flex_foot = DIV(["style" => "margin:auto;", "title" => "Video"], "🎞");
+        } else {
+            $thumb_flex_head = DIV(["style" => "margin:auto;"], "\u{A0}");
+            $thumb_flex_foot = DIV(["style" => "margin:auto;"], "\u{A0}");
+        }
+
         $attrs = [
             "href" => $view_link,
             "class" => "thumb shm-thumb shm-thumb-link $custom_classes",
@@ -122,6 +130,7 @@ class CommonElementsTheme extends Themelet
 
         return A(
             $attrs,
+            $thumb_flex_head,
             IMG(
                 [
                     "id" => "thumb_$id",
@@ -131,7 +140,8 @@ class CommonElementsTheme extends Themelet
                     "width" => $tsize[0],
                     "src" => $thumb_link,
                 ]
-            )
+            ),
+            $thumb_flex_foot
         );
     }
 

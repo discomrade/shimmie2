@@ -396,6 +396,7 @@ ARTICLE /*TABLE*/ {
 	width: 180px;
 	
 	display: inline-flex;
+	flex-direction:column;
 	align-items: center;
 	justify-content: center;
 }

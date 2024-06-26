@@ -6,7 +6,7 @@ namespace Shimmie2;
 
 use MicroHTML\HTMLElement;
 
-use function MicroHTML\{A,B,BR,IMG,emptyHTML,joinHTML,LINK};
+use function MicroHTML\{A,B,BR,IMG,emptyHTML,joinHTML,LINK,rawHTML};
 
 class CommonElementsTheme extends Themelet
 {
@@ -93,9 +93,17 @@ class CommonElementsTheme extends Themelet
         if (Extension::is_enabled(RatingsInfo::KEY)) {
             $attrs["data-rating"] = $image['rating'];
         }
+        if (str_starts_with($image->get_mime(), "video")) {
+            $thumb_flex_1 = rawHTML('<div style="margin:auto;">&nbsp;</div>');
+            $thumb_flex_3 = rawHTML('<div style="margin:auto;" title="Video">🎞️</div>');
+        } else {
+            $thumb_flex_1 = rawHTML('<div style="margin:auto;">&nbsp;</div>');
+            $thumb_flex_3 = rawHTML('<div style="margin:auto;">&nbsp</div>');
+        }
 
         return A(
             $attrs,
+            $thumb_flex_1,
             IMG(
                 [
                     "id" => "thumb_$id",
@@ -105,7 +113,8 @@ class CommonElementsTheme extends Themelet
                     "width" => $tsize[0],
                     "src" => $thumb_link,
                 ]
-            )
+            ),
+            $thumb_flex_3
         );
     }
 

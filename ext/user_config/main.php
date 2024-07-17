@@ -47,6 +47,7 @@ class UserConfig extends Extension
     public const VERSION = "ext_user_config_version";
     public const ENABLE_API_KEYS = "ext_user_config_enable_api_keys";
     public const API_KEY = "api_key";
+    public const DELETE_OWN_POSTS = "delete_own_posts";
 
     public function onInitExt(InitExtEvent $event): void
     {

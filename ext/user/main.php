@@ -140,6 +140,7 @@ class UserPage extends Extension
         $config->set_default_bool(UserAccountsConfig::LOGIN_TAC_BBCODE, true);
         $config->set_default_bool(UserAccountsConfig::USER_EMAIL_REQUIRED, false);
         $config->set_default_bool(UserAccountsConfig::SIGNUP_CAPTCHA, true);
+        $config->set_default_bool(UserConfig::DELETE_OWN_POSTS, true);
 
         $config->set_default_string(AvatarConfig::HOST, "none");
         $config->set_default_int(AvatarConfig::GRAVATAR_SIZE, 80);
@@ -415,6 +416,7 @@ class UserPage extends Extension
 
         $sb = $event->panel->create_new_block("User Options");
         $sb->start_table();
+        $sb->add_bool_option(UserConfig::DELETE_OWN_POSTS, "Allow deleting own posts", true);
         $sb->add_bool_option(UserConfig::ENABLE_API_KEYS, "Enable user API keys", true);
         $sb->add_bool_option(UserAccountsConfig::SIGNUP_ENABLED, "Allow new signups", true);
         $sb->add_bool_option(UserAccountsConfig::USER_EMAIL_REQUIRED, "Require email address", true);

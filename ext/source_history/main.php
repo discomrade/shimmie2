@@ -52,7 +52,7 @@ class SourceHistory extends Extension
 
     public function onImageAdminBlockBuilding(ImageAdminBlockBuildingEvent $event): void
     {
-        $event->add_button("View Source History", "source_history/{$event->image->id}", 20);
+        $event->add_button("View Source History", "source_history/{$event->image->id}", 22);
     }
 
     /*

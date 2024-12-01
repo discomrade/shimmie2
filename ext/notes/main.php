@@ -192,7 +192,7 @@ class Notes extends Extension
             $event->add_part($this->theme->request_button($event->image->id));
         }
 
-        $event->add_button("View Note History", "note_history/{$event->image->id}", 20);
+        $event->add_button("View Note History", "note_history/{$event->image->id}", 23);
     }
 
 

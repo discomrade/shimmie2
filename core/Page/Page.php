@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Shimmie2;
 
-use function MicroHTML\{A, ARTICLE, B, BODY, BR, DIV, FOOTER, H1, H3, HEAD, HEADER as HTML_HEADER, HTML, LINK, META, NAV, SCRIPT, SECTION, TITLE, emptyHTML, joinHTML};
+use function MicroHTML\{A, ARTICLE, B, BODY, BR, DIV, FOOTER, H1, H2, H3, HEAD, HEADER as HTML_HEADER, HTML, LINK, META, NAV, SCRIPT, SECTION, TITLE, emptyHTML, joinHTML};
 
 use MicroHTML\HTMLElement;
 
@@ -627,7 +627,11 @@ class Page
     {
         $html = SECTION(['id' => $block->id]);
         if (!empty($block->header)) {
-            $html->appendChild(H3(["data-toggle-sel" => "#{$block->id}", "class" => $hidable ? "shm-toggler" : ""], $block->header));
+            if ($block->section == "main" || $block->section == "subheading") {
+                $html->appendChild(H2(["data-toggle-sel" => "#{$block->id}", "class" => $hidable ? "shm-toggler" : ""], $block->header));
+            } else {
+                $html->appendChild(H3(["data-toggle-sel" => "#{$block->id}", "class" => $hidable ? "shm-toggler" : ""], $block->header));
+            }
         }
         if (!empty($block->body)) {
             $html->appendChild(DIV(['class' => "blockbody"], $block->body));

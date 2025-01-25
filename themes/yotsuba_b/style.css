@@ -391,8 +391,8 @@ ARTICLE /*TABLE*/ {
 #front-page {
 	grid-column: 1 / 3;
 }
-#image-list {
-	margin-top: -5px;
+SECTION#image-list .blockbody {
+	margin: -5px 0 0 0;
 }
 .thumb {
 	border: 1px solid var(--block-border);

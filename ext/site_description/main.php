@@ -33,4 +33,11 @@ class SiteDescription extends Extension
         $sb->add_text_option("site_description", "Description: ");
         $sb->add_text_option("site_keywords", "<br>Keywords: ");
     }
+
+    // raise priority so this runs before extensions which display
+    // their own page html but haven't set a custom priority level
+    public function get_priority(): int
+    {
+        return 40;
+    }
 }

@@ -27,4 +27,11 @@ final class SiteDescription extends Extension
             ]));
         }
     }
+
+    // raise priority so this runs before extensions which display
+    // their own page html but haven't set a custom priority level
+    public function get_priority(): int
+    {
+        return 40;
+    }
 }

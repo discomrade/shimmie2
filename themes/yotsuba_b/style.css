@@ -130,10 +130,13 @@ H1 A:visited, H2 A:visited {
 H1 {
 	font-size: 100%;
 }
+H2, H3 {
+	font-size: 1.17em;
+}
 SECTION>.blockbody, .comment, .setupblock {
 
 }
-SECTION>.blockbody, SECTION>H3, FOOTER, .comment, .setupblock {
+SECTION>.blockbody, SECTION>H2, SECTION>H3, FOOTER, .comment, .setupblock {
 	margin: 1em;
 }
 THEAD {
@@ -403,10 +406,10 @@ ARTICLE /*TABLE*/ {
 	align-items: center;
 	justify-content: center;
 }
-#image-list H3 {
+#image-list H2 {
 	display: none;
 }
-#Imagemain H3 {
+#Imagemain H2 {
 	display: none;
 }
 #Imagemain .blockbody {

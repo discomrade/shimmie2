@@ -19,7 +19,6 @@ class HomeTheme extends Themelet
             emptyHTML(
                 TITLE($sitename),
                 META(["http-equiv" => "Content-Type", "content" => "text/html;charset=utf-8"]),
-                META(["name" => "viewport", "content" => "width=device-width, initial-scale=1"]),
                 $page->get_all_html_headers(),
             ),
             $body

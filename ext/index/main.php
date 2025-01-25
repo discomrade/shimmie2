@@ -10,6 +10,7 @@ use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 
 use function MicroHTML\rawHTML;
+use function MicroHTML\META;
 
 require_once "events.php";
 
@@ -87,6 +88,14 @@ class Index extends Extension
             }
 
             $count_images = count($images);
+
+            // don't index subsequent pages in search engines, but still follow them to discover posts
+            if ($page_number > 1) {
+                $page->add_html_header(META([
+                    'name' => 'robots',
+                    'content' => 'noindex'
+                ]));
+            }
 
             if ($count_search_terms === 0 && $count_images === 0 && $page_number === 1) {
                 $this->theme->display_intro($page);

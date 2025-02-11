@@ -11,4 +11,7 @@ final class HolidayConfig extends ConfigGroup
 
     #[ConfigMeta("April Fools", ConfigType::BOOL, default: false)]
     public const APRIL_FOOLS = "holiday_aprilfools";
+
+    #[ConfigMeta("Alunya", ConfigType::BOOL, default: false, help: "Enable Alunya neko on April Fools & May Day")]
+    public const ALUNYA_NEKO = "holiday_alunyaneko";
 }

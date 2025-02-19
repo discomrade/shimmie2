@@ -79,13 +79,29 @@ class Notes extends Extension
 
     public function onPageNavBuilding(PageNavBuildingEvent $event): void
     {
-        $event->add_nav_link("note", new Link('note/requests'), "Notes");
+        global $user;
+        $h_count = "";
+        if ($user->can(Permissions::NOTES_CREATE)) {
+            $count = $this->count_note_requests();
+            if ($count > 0) {
+                $h_count = " ($count)";
+            }
+        }
+        $event->add_nav_link("note", new Link('note/requests'), "Notes$h_count");
     }
 
     public function onPageSubNavBuilding(PageSubNavBuildingEvent $event): void
     {
         if ($event->parent == "note") {
-            $event->add_nav_link("note_requests", new Link('note/requests'), "Requests");
+            global $user;
+            $h_count = "";
+            if ($user->can(Permissions::NOTES_CREATE)) {
+                $count = $this->count_note_requests();
+                if ($count > 0) {
+                    $h_count = " ($count)";
+                }
+            }
+            $event->add_nav_link("note_requests", new Link('note/requests'), "Requests$h_count");
             $event->add_nav_link("note_list", new Link('note/list'), "List");
             $event->add_nav_link("note_updated", new Link('note/updated'), "Updates");
             $event->add_nav_link("note_help", new Link('ext_doc/notes'), "Help");
@@ -522,5 +538,16 @@ class Notes extends Extension
 		", ['enable' => 1, 'x1' => $noteX1, 'y1' => $noteY1, 'height' => $noteHeight, 'width' => $noteWidth, 'note' => $noteText, 'image_id' => $imageID, 'id' => $noteID]);
 
         $this->add_history($noteEnable, $noteID, $imageID, $noteX1, $noteY1, $noteHeight, $noteWidth, $noteText);
+    }
+
+    public function count_note_requests(): int
+    {
+        global $database;
+
+        return (int)cache_get_or_set(
+            "note-request-count",
+            fn () => $database->get_one("SELECT count(DISTINCT image_id) FROM note_request"),
+            600
+        );
     }
 }

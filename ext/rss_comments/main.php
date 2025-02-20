@@ -83,4 +83,10 @@ EOD;
             $event->add_nav_link(make_link('rss/comments'), "Feed");
         }
     }
+
+    public function onRobotsBuilding(RobotsBuildingEvent $event): void
+    {
+        // rss feeds are redundant to index, this just adds extra requests to crawlers
+        $event->add_disallow("rss/comments");
+    }
 }

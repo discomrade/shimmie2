@@ -220,6 +220,15 @@ final class Index extends Extension
         }
     }
 
+    public function onRobotsBuilding(RobotsBuildingEvent $event): void
+    {
+        // prevents crawlers from making pointless crawling searches
+        // with multiple tags (prevents dumb crawlers creating thousands
+        // of wasteful searches through the Refine Tags +/- feature)
+        $event->add_disallow("post/list/*%20*");
+        $event->add_disallow("post/list/-*");
+    }
+
     public function get_priority(): int
     {
         // we want to turn a search term into a TagCondition only if nobody did anything else with that term

@@ -142,9 +142,13 @@ class IndexTheme extends Themelet
     protected function display_page_images(array $images): void
     {
         if (count($this->search_terms) > 0) {
-            if ($this->page_number > 3) {
-                // only index the first pages of each term
+            if ($this->search_terms > 1) {
+                // don't index and discourage crawl of searches for more than one tag
                 Ctx::$page->add_html_header(META(["name" => "robots", "content" => "noindex, nofollow"]));
+            }
+            if ($this->page_number > 1) {
+                // only index the first page of each term
+                Ctx::$page->add_html_header(META(["name" => "robots", "content" => "noindex"]));
             }
             $query = url_escape(Tag::implode($this->search_terms));
             Ctx::$page->add_block(new Block(null, $this->build_table($images, "search=$query"), "main", 10, "image-list"));
